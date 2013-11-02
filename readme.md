@@ -90,7 +90,7 @@ express作为一个mvc框架，肯定不能仅仅是处理静态页，作为MVC�
 	<% } %>
 
 
-6.7  Express 中的GET和POST
+### 6.7  Express 中的GET和POST ###
 
 接下来的内容来讲一下express中怎样使用get和post，首先我们在views文件夹下新建目录user,然后在user目录下新建文件sign.ejs(当然你也可以把它当成静态页，放到public中；但是正常环境下，对于html一般都是通过视图的方式来加载)。
 
