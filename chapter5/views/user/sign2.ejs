@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Node.js注册演示</title>
+<script language="javascript" src="/javascripts/jquery-1.10.2.js"></script>
+</head>
+<body>
+<h1>注册</h1>
+<form id="signup" method="post" action="/users/sign2">
+<label>帐号：</label><input type="text" name="name" /><br />
+<label>Email：</label><input type="text" name="email" /><br />
+<input type="submit" value="注册" /><br>
+</form>
+<script language="javascript">
+	$(document).ready(function() {
+		$('#signup').submit(function() {
+			$.post($(this).attr('action'),$(this).serialize(),function(result) {
+				if (result.code == 0) {
+					alert('注册成功');
+				} else {
+					if (result.msg) {
+						alert(result.msg);
+					} else {
+						alert('服务器异常');
+					}
+				}
+			},'json')
+			return false;
+		});
+	});
+</script>
+</body>
+</html>
