@@ -32,7 +32,7 @@ app.use(session({
     resave:false,
     saveUninitialized:false,
     store: new RedisStore({
-        client:redis.createClient(6379, '127.0.0.1');,
+        client:redis.createClient(6379, '127.0.0.1'),
         ttl:3600*72,
         db:2,
         prefix:'session:chapter6:'

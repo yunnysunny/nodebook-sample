@@ -11,6 +11,7 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "express-session": "~1.13.0",
     "connect-redis": "~3.0.2",
     "redis": "~2.3.0",
     "morgan": "~1.6.1",
