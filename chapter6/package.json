@@ -15,6 +15,7 @@
     "connect-redis": "~3.0.2",
     "redis": "~2.3.0",
     "morgan": "~1.6.1",
+    "mongoskin":"~2.1.0",
     "serve-favicon": "~2.3.0"
   }
 }
