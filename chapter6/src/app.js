@@ -9,7 +9,7 @@ var RedisStore = require('connect-redis')(session);
 var redis = require('redis');
 
 var routes = require('./routes/index');
-//var users = require('./routes/users');
+var authFilter = require('./filters/auth_filter');
 
 var app = express();
 
@@ -39,6 +39,7 @@ app.use(session({
     })
 
 }));
+app.use(authFilter);
 app.use('/', routes);
 //app.use('/users', users);
 

@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/user/login', user.login);
+router.post('/user/login-with-db',user.loginWithDb);
 router.get('/user/admin',user.admin);
 
 module.exports = router;
