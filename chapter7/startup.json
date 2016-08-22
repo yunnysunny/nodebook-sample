@@ -1,0 +1,17 @@
+{
+  apps : [{
+    name        : "chapter7",
+    script      : "./src/bin/www",
+    
+    max_restarts: 5,
+    watch       : false,
+    error_file  : "d:\\temp\\log\\pm2\\chapter7\\error.log",
+    out_file    : "d:\\temp\\log\\pm2\\chapter7\\out.log",
+    env: {
+      "NODE_ENV": "development",
+    },
+    env_production : {
+       "NODE_ENV": "production"
+    }
+  }]
+}

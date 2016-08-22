@@ -7,6 +7,8 @@
 var app = require('../app');
 //var debug = require('debug')('first-app:server');
 var http = require('http');
+var config = require('../config');
+var errorlogger = config.errorlogger;
 
 /**
  * Get port from environment and store in Express.
@@ -68,3 +70,13 @@ function onListening() {
     : 'port ' + addr.port;
   console.log('Listening on ' + bind);
 }
+process.on('uncaughtException', function(err) {
+    try {
+        errorlogger.error('出现重大异常，重启当前进程',err);
+    } catch(e) {
+        console.error('请检查日志文件是否存在',e);
+    }
+
+    console.log('kill current proccess:'+process.pid);
+    process.exit();
+});

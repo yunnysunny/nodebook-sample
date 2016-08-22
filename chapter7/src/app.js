@@ -9,6 +9,7 @@ var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var redis = require('redis');
 
+var testRotes = require('./routes/test');
 var routes = require('./routes/index');
 var authFilter = require('./filters/auth_filter');
 var config = require('./config');
@@ -46,6 +47,7 @@ app.use(session({
     })
 
 }));
+app.use('/test',testRotes);
 app.use(authFilter);
 app.use('/', routes);
 //app.use('/users', users);
