@@ -7,5 +7,9 @@
 
         "url":"mongodb://localhost:27017/live",
         "dbOption":{"safe":true}
-    }
+    },
+    "redis" : {
+        "port" : 6379,
+        "host":"127.0.0.1"
+    },
 }
