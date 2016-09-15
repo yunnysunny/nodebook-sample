@@ -3,4 +3,5 @@ node_modules/
 *.iml
 .idea/
 .vscode/
+process.json
 config.json

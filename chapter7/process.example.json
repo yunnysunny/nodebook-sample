@@ -2,11 +2,12 @@
   apps : [{
     name        : "chapter7",
     script      : "./src/bin/www",
-    
+    instances   : 2,
+    exec_mode: "cluster",
     max_restarts: 5,
     watch       : false,
-    error_file  : "d:\\temp\\log\\pm2\\chapter7\\error.log",
-    out_file    : "d:\\temp\\log\\pm2\\chapter7\\out.log",
+    error_file  : "/tmp/log/chapter7/error.log",
+    out_file    : "/tmp/log/chapter7/out.log",
     env: {
       "NODE_ENV": "development",
     },
