@@ -11,6 +11,7 @@ var redis = require('redis');
 
 var testRotes = require('./routes/test');
 var routes = require('./routes/index');
+var calculatorRoutes = require('./routes/calculator');
 var authFilter = require('./filters/auth_filter');
 var config = require('./config');
 var tracelogger = config.tracelogger;
@@ -36,18 +37,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'GG##@$',
     cookie:{domain:'localhost'},
-    key:'express_chapter6',
+    key:'express_chapter7',
     resave:false,
     saveUninitialized:false,
     store: new RedisStore({
         client:config.redis,
         ttl:3600*72,
         db:2,
-        prefix:'session:chapter6:'
+        prefix:'session:chapter7:'
     })
 
 }));
 app.use('/test',testRotes);
+app.use('/calculator',calculatorRoutes)
 app.use(authFilter);
 app.use('/', routes);
 //app.use('/users', users);
