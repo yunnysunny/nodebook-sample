@@ -3,5 +3,6 @@ node_modules/
 *.iml
 .idea/
 .vscode/
+chapter8/.git/
 process.json
 config.json
