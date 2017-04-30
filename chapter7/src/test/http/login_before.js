@@ -1,6 +1,6 @@
 var request = require('supertest');
 var app = require('../../app');
-var cookie = '';
+var cookie = exports.cookie = '';
 
 before(function(done) {
     request(app)
@@ -18,7 +18,7 @@ before(function(done) {
               var value = setCookieArray[i];
               var result = value.match(/^express_chapter7=([a-zA-Z0-9%\.\-_]+);\s/);
               if (result && result.length > 1) {
-                  cookie = result[1];
+                  exports.cookie = cookie = result[1];
                   break;
               }
           }
@@ -27,13 +27,4 @@ before(function(done) {
           }
           done();
       });
-});
-describe('Backend',function() {
-
-    it('first test',function(done) {
-        request(app)
-        .get('/user/admin')
-        .set('Cookie','express_chapter7='+cookie)
-        .expect(200,/<title>admin<\/title>/,done);
-    });
 });
