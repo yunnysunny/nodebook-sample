@@ -1,5 +1,5 @@
 {
-  "name": "chapter6",
+  "name": "chapter7",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -14,10 +14,16 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "express-session": "~1.13.0",
-    "mongoose": "^4.9.7",
+    "log4js": "^0.6.38",
     "mongoskin": "~2.1.0",
-    "morgan": "~1.6.1",
+    "node-slogger": "0.0.2",
     "redis": "~2.3.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "expect.js": "^0.3.1",
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
   }
 }
