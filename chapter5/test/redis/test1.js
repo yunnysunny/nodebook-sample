@@ -17,7 +17,10 @@ var clusterRedis = [
 var redis =  new Redis.Cluster(clusterRedis,{redisOptions:{password: 'auth'});//集群连接方式
 */
 
-redis.set('foo', 'bar');
-redis.get('foo', function (err, result) {
-  console.log(result);
+redis.set('foo', 'bar', function(err,reply) {
+  console.log(err, reply);//正常情况打印 null 'OK'
 });
+redis.get('foo', function (err, result) {
+  console.log(err,result);//正常情况打印 null 'bar'
+});
+

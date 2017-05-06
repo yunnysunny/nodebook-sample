@@ -1,0 +1,14 @@
+{
+  "name": "chapter5",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./src/bin/www"
+  },
+  "dependencies": {
+    "async": "~1.5.0",
+    "ioredis": "^2.5.0",
+    "mongoose": "^4.9.7",
+    "mongoskin": "~2.1.0"
+  }
+}
