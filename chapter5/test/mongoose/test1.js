@@ -7,7 +7,7 @@ var articleSchema = new Schema({
   name:  String,
   content:   String,
   comments: [{ body: String, date: Date }],
-  createTime: { type: Date, default: Date.now }
+  create_at: { type: Date, default: Date.now }
 });
 
 var Article = mongoose.model('article', articleSchema);
