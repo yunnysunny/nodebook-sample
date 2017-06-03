@@ -7,3 +7,4 @@ node_modules/
 .history/
 process.json
 config.json
+build
