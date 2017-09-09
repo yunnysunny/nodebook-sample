@@ -1,0 +1,16 @@
+{
+  "name": "async-simple",
+  "version": "1.0.0",
+  "description": "c++ addon简单示例",
+  "main": "addon.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp rebuild"
+  },
+  "author": "yunnysunny",
+  "license": "MIT",
+  "gypfile": true,
+  "dependencies": {
+    "nan": "^2.7.0"
+  }
+}
