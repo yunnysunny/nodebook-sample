@@ -1,0 +1,14 @@
+{
+  "name": "mycalc",
+  "version": "1.0.0",
+  "description": "c++ addon 类映射",
+  "main": "addon.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yunnysunny",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.7.0"
+  }
+}
