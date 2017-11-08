@@ -1,0 +1,10 @@
+{
+  "name":"chapter11",
+  "scripts":{
+    "start":"node app.js",
+    "inspect":"node --inspect=9229 app.js"
+  },
+  "dependencies": {
+    "ccap": "^0.6.10"
+  }
+}
