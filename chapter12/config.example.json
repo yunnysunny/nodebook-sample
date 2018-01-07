@@ -1,0 +1,15 @@
+{
+    "port":8100,
+    "debuglogfilename":"d:/temp/log/weibo.debug.log",
+    "tracelogfilename":"d:/temp/log/weibo.trace.log",
+    "errorlogfilename":"d:/temp/log/weibo.error.log",
+    "mongoConfig" : {
+
+        "url":"mongodb://localhost:27017/cms",
+        "dbOption":{"useMongoClient": true}
+    },
+    "redisConfig" : {
+        "port" : 6379,
+        "host":"127.0.0.1"
+    }
+}

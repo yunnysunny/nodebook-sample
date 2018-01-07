@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="<%= locals.csrf || '' %>" name="csrf-token">
+    <title>添加文章</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>欢迎<%=user.account%>使用此后台</h1>
+    <form action="/article/add" method="post" id="js-article-add">
+        <label >标题：<input name="title"/></label><br />
+        <label >内容：<textarea rows="20" cols="50" name="content"></textarea></label><br />
+        <button>提交</button>
+    </form>
+    <script src="//upcdn.b0.upaiyun.com/libs/jquery/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/javascripts/csrf.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#js-article-add').submit(function() {
+                var $this = $(this);
+                $.post($this.attr('action'),$this.serialize()).done(function(result) {
+                    if (result.code == 0) {
+                        $this.find('input,textarea').val('');
+                        return alert('提交成功');
+                    } 
+                    alert(result.msg);
+                }).fail(function(e) {
+                    alret('网络异常');
+                    console.error('提交文章时网络异常',e);
+                });
+                return false;
+            });
+        });
+    </script>
+  </body>
+</html>

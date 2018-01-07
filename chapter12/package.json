@@ -1,0 +1,30 @@
+{
+  "name": "chapter7",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./src/bin/www"
+  },
+  "dependencies": {
+    "async": "~1.5.0",
+    "body-parser": "~1.13.2",
+    "connect-redis": "~3.0.2",
+    "cookie-parser": "~1.3.5",
+    "csurf": "^1.9.0",
+    "debug": "~2.2.0",
+    "ejs": "~2.3.3",
+    "express": "~4.13.1",
+    "express-session": "~1.13.0",
+    "ioredis": "^3.2.2",
+    "log4js": "^0.6.38",
+    "mongoose": "^5.0.0-rc2",
+    "node-slogger": "^0.4.3",
+    "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "expect.js": "^0.3.1",
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
+  }
+}
