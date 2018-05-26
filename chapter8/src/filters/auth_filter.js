@@ -1,7 +1,7 @@
 const ERROR_NO_LOGIN = 0xffff0000;
 module.exports = function(req, res, next) {
     var path = req.path;
-    if (path === '/' || path === '/user/login') {//这些路径不需要做登陆验证
+    if (path === '/' || path === '/user/login' || path === '/user/login-with-db') {//这些路径不需要做登陆验证
         return next();
     }
     if (req.session && req.session.user) {//已经登陆了
