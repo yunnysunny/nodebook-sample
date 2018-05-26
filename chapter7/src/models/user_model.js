@@ -1,13 +1,12 @@
 var crypto = require('crypto');
-var collection = require('./index');
-var users = collection.users;
+var UserModel = require('./index').UserModel;
 
 var passwordValid = exports.passwordValid = function(passwordInput,passwordDb) {
     return crypto.createHash('sha256').update(passwordInput).digest('base64') === passwordDb;
 }
 
 exports.loginCheck = function(username,password,callback) {
-    users.findOne({account:username},function(err,item) {
+    UserModel.findOne({account:username},{passwd:1},{lean:true},function(err,item) {
         if (err) {
             console.error('查询用户时失败',err);
             return callback('查询用户时失败');
