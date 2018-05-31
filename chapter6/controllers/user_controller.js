@@ -23,18 +23,13 @@ exports.showSign2 = function(req, res) {
 
 exports.doSign2 = function(req, res) {
 	var name = req.body.name;
-	var result = {};
 	if (!name) {
-		result.code = 1;
-		result.msg = '账号不能为空';
-		res.send(result);
+		res.send({code:1,msg:'账号不能为空'});
 		return;
 	}
 	var email = req.body.email;
 	if (!email) {
-		result.code = 2;
-		result.msg = '邮箱不能为空';
-		res.send(result);
+		res.send({code:2,msg:'邮箱不能为空'});
 		return;
 	}
 	res.send({code : 0});

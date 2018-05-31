@@ -9,7 +9,11 @@ const imageDir = __dirname + '/images';
 
 const server = http.createServer((req, res) => {
     const url = req.url;
+    if (url === '/') {
+        return res.end('home page');
+    }
     const _path = path.join(imageDir , url);
+
     fs.exists(_path,function(exists) {
         if (exists) {
             res.statusCode = 200;
