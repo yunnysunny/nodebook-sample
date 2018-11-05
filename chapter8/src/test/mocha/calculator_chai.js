@@ -1,7 +1,7 @@
 var chai = require('chai');
 var calculator = require('./calculator');
 var assert = chai.assert;//use assert
-chai.should();//use should
+var should = chai.should();//use should
 var expect = chai.expect;//use expect
 
 describe('Calculator', function() {
@@ -13,7 +13,7 @@ describe('Calculator', function() {
 
   describe('#add() test use should', function() {
     it('should get 3 when 1 add 2', function() {
-      (calculator.add(1,2)).should.be.equal(3).and.be.a('number');
+      (calculator.add(1,2)).should/*.be.a('number').and*/.be.equal(3);
     });
   });
 

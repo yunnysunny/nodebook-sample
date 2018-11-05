@@ -1,9 +1,11 @@
 {
-  "name": "chapter7",
+  "name": "chapter8",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/bin/www"
+    "start": "node ./src/bin/www",
+    "test": "nyc mocha --recursive src/test/mocha --timeout 99999 --exit",
+    "coverage": "nyc report --reporter=html"
   },
   "dependencies": {
     "async": "~1.5.0",
@@ -23,6 +25,8 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "expect.js": "^0.3.1",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "should": "^11.1.0",
     "supertest": "^2.0.0"
   }
