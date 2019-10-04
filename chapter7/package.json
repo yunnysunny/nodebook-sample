@@ -21,7 +21,7 @@
     "morgan": "~1.9.1",
     "redis": "~2.3.0",
     "serve-favicon": "~2.4.5",
-    "snyk": "^1.192.3"
+    "snyk": "^1.231.0"
   },
   "snyk": true
 }
