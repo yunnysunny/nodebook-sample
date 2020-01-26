@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/bin/www"
+    "start": "node ./src/bin/www",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "async": "~1.5.0",
@@ -19,12 +21,14 @@
     "log4js": "^0.6.38",
     "mongoose": "^5.0.0-rc2",
     "node-slogger": "^0.4.3",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "expect.js": "^0.3.1",
     "should": "^11.1.0",
     "supertest": "^2.0.0"
-  }
+  },
+  "snyk": true
 }
