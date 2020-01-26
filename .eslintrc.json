@@ -1,17 +1,13 @@
 {
     "env": {
-        "browser": true,
         "commonjs": true,
         "es6": true,
         "mocha": true,
-        "node": true,
-        "jquery":true
+        "node": true
     },
+    "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "sourceType": "module"
+        "ecmaVersion": 2018
     },
     "rules": {
         "no-const-assign": "warn",
@@ -20,6 +16,7 @@
         "no-unreachable": "warn",
         "no-unused-vars": "warn",
         "constructor-super": "warn",
-        "valid-typeof": "warn"
+        "valid-typeof": "warn",
+        "no-console": 0
     }
 }
