@@ -1,4 +1,4 @@
-var assert = require('should');
+require('should');
 var calculator = require('./calculator');
 
 describe('Calculator', function() {
