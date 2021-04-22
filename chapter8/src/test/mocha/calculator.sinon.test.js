@@ -13,6 +13,7 @@ describe('Calculator sinon', function () {
         it('restore all the hook operation', function () {
             var spy = sinon.spy(console, 'log');
             calculator.add(1, 2);
+            assert(spy.calledOnce);
             assert(spy.calledWith(1, 2));
             console.log.restore();
             sinon.restore();
