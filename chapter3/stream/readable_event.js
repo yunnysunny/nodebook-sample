@@ -8,7 +8,7 @@ class MyReadable extends Readable {
   _read() {
     console.log('_read has been called');
     const index = Math.random() * 0xff;
-    this.push(Buffer.from([index & 0xff]));
+    // this.push(Buffer.from([index & 0xff]));//加上这句代码，可以让缓冲区中一直有数据
   }
 }
 
@@ -22,8 +22,10 @@ for (let i=0;i<initSize;i++) {
         console.warn('reach highwater, you have better not to push',i);
     }
 }
+reader.pause()//这句话没有任何意义，因为代码中有 readable 事件监听，pause 函数调用将会被忽略
 reader.on('readable',function() {
-    console.log('able',reader.readableFlowing );
-    console.log(reader.read());
+    console.log('flow mode',reader.readableFlowing );
+    console.log('get data', reader.read());
 });
+
 console.log('now',reader.readableFlowing );
