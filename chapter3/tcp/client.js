@@ -185,7 +185,6 @@ class Client extends EventEmitter {
         }
         console.log('正文长度' + this._bodyLength);
         let body;
-        // body 可能为空
         if (this._bodyLength > 0) {
             body = this.read(this._bodyLength);
             if (!body) {
