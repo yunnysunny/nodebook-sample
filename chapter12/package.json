@@ -17,7 +17,7 @@
     "ejs": "~2.5.5",
     "express": "~4.16.0",
     "express-session": "~1.15.6",
-    "ioredis": "^3.2.2",
+    "ioredis": "^4.27.8",
     "log4js": "^0.6.38",
     "mongoose": "^5.0.0-rc2",
     "node-slogger": "^0.4.3",
