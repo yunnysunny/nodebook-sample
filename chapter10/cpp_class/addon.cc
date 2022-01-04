@@ -3,8 +3,8 @@
 
 using namespace v8;
 
-void InitAll(Handle<Object> exports, Handle<Object> module) {
-    MyCalc::Init(module);
+void InitAll(v8::Local<v8::Object> exports) {
+    MyCalc::Init(exports);
 }
 
 NODE_MODULE(mycalc, InitAll)

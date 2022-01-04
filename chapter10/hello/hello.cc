@@ -12,7 +12,8 @@ using v8::Value;
 
 void Method(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = args.GetIsolate();
-  args.GetReturnValue().Set(String::NewFromUtf8(isolate, "world"));
+  args.GetReturnValue().Set(String::NewFromUtf8(
+      isolate, "world").ToLocalChecked());
 }
 
 void init(Local<Object> exports) {
