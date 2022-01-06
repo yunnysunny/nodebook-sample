@@ -5,7 +5,7 @@
 
 class MyCalc : public Nan::ObjectWrap {
 public:
-    static void Init(v8::Local<v8::Object> exports);
+    static void Init(v8::Local<v8::Object> module);
 private:
     explicit MyCalc(double value=0);
     ~MyCalc();

@@ -12,5 +12,6 @@
   "gypfile": true,
   "dependencies": {
     "nan": "^2.7.0"
-  }
+  },
+  "__npminstall_done": false
 }

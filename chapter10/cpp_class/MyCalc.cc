@@ -10,8 +10,8 @@ MyCalc::~MyCalc() {
 
 }
 
-void MyCalc::Init(v8::Local<v8::Object> exports) {
-    v8::Local<v8::Context> context = exports->CreationContext();
+void MyCalc::Init(v8::Local<v8::Object> module) {
+    v8::Local<v8::Context> context = module->CreationContext();
     Nan::HandleScope scope;
 
     // Prepare constructor template
@@ -23,8 +23,8 @@ void MyCalc::Init(v8::Local<v8::Object> exports) {
     Nan::SetPrototypeMethod(tpl,"getValue",GetValue);//js类的成员函数名为getValue,我们将其映射为 C++中的GetValue函数
     
     constructor.Reset(tpl->GetFunction(context).ToLocalChecked());
-    exports->Set(context,
-               Nan::New("MyCalc").ToLocalChecked(),
+    module->Set(context,
+               Nan::New<v8::String>("exports").ToLocalChecked(),
                tpl->GetFunction(context).ToLocalChecked());
 }
 
