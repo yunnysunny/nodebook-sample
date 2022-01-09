@@ -12,6 +12,7 @@ MyCalc::~MyCalc() {
 
 void MyCalc::Init(v8::Local<v8::Object> module) {
     v8::Local<v8::Context> context = module->CreationContext();
+    v8::Isolate* isolate = module->GetIsolate();
     Nan::HandleScope scope;
 
     // Prepare constructor template
@@ -26,6 +27,9 @@ void MyCalc::Init(v8::Local<v8::Object> module) {
     module->Set(context,
                Nan::New<v8::String>("exports").ToLocalChecked(),
                tpl->GetFunction(context).ToLocalChecked());
+    node::AddEnvironmentCleanupHook(isolate, [](void*) {
+        constructor.Reset();
+    }, nullptr);
 }
 
 NAN_METHOD(MyCalc::New) {
