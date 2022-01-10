@@ -1,0 +1,32 @@
+{
+  "name": "nodebook-sample",
+  "version": "1.0.0",
+  "description": "sample code for nodebook",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yunnysunny/nodebook-sample.git"
+  },
+  "keywords": [
+    "node",
+    "nodebook"
+  ],
+  "author": "yunnysunny",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yunnysunny/nodebook-sample/issues"
+  },
+  "homepage": "https://github.com/yunnysunny/nodebook-sample#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0"
+  }
+}
