@@ -1,5 +1,8 @@
 const client = require('prom-client');
-const gauge = new client.Gauge({ name: 'req_duration', help: 'request duration' });
+const gauge = new client.Gauge({
+    name: 'req_duration',
+    help: 'request duration'
+});
 const histogram = new client.Histogram({
     name: 'req_duration_histogram',
     help: 'request duration histogram',
@@ -11,7 +14,7 @@ const summary = new client.Summary({
     percentiles: [0.01, 0.1, 0.5, 0.9, 0.99],
 });
 exports.collectDuration = function (duration) {
-    gauge.set(duration); // Set to 10
+    gauge.set(duration);
     histogram.observe(duration);
     summary.observe(duration);
 };
