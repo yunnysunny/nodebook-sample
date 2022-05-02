@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "prom-client": "^14.0.1"
+  }
+}
