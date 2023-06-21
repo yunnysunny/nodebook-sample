@@ -16,7 +16,7 @@
     "ejs": "~2.5.5",
     "express": "~4.16.0",
     "express-session": "~1.15.6",
-    "log4js": "^0.6.38",
+    "log4js": "^3.0.0",
     "mongoskin": "~2.1.0",
     "node-slogger": "0.0.2",
     "redis": "~2.3.0",
