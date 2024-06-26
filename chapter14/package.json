@@ -1,4 +1,10 @@
 {
+  "name": "chapter14",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./app.js"
+  },
   "dependencies": {
     "prom-client": "^14.0.1"
   }
