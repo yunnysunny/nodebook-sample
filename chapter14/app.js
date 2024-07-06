@@ -28,6 +28,9 @@ http.createServer((req, res) => {
             });
             return;
         }
-        res.end('Hello World');
+        res.end(JSON.stringify({
+            url,
+            method: req.method,
+        }));
     }, duration);
 }).listen(port, '0.0.0.0');
