@@ -17,7 +17,7 @@ const DATA_TYPE_JSON = 0b00000000;
 const DATA_TYPE_BINARY = 0b00100000;
 /**
  * @typedef {Object} SendPacket 发送请求数据包结构
- * 
+ *
  * @property {Number} [timeout=20000] 请求超时时间
  * @property {Number} [dataType=0] 0b000 json 数据 0b001 二进制数据
  * @property {Object} data
@@ -28,14 +28,14 @@ const DATA_TYPE_BINARY = 0b00100000;
 
 /**
  * @typedef SendCallback send 函数发送回调函数
- * 
+ *
  * @property {Error=} err 错误信息
  * @property {Object} res 响应内容
  */
 
 /**
  * @typedef ClientOption Client 类构造参数
- * 
+ *
  * @property {Boolean} [noDelay=true] - 是否开启 Nagle 算法，默认：true，不开启
  * @property {Boolean} [unref=false] - socket.unref，默认不 false
  * @property {Number} [concurrent=0] - 并发请求数，默认：0，不控制并发
@@ -49,17 +49,17 @@ const DATA_TYPE_BINARY = 0b00100000;
 
 /**
  * tcp 客户端的基类
- * 
+ *
  * @class Client
  * @extends {EventEmitter}
  */
 class Client extends EventEmitter {
     /**
      * @param {ClientOption} options
-     * 
+     *
      * @constructor
      */
-    constructor(options) {
+    constructor (options) {
         super();
         options = Object.assign({}, defaultOptions, options);
 
@@ -72,7 +72,7 @@ class Client extends EventEmitter {
         } else {
             this._connect();
         }
-        
+
         this.options = options;
         this._queue = [];
         this._header = null;
@@ -82,60 +82,60 @@ class Client extends EventEmitter {
             this._socket.setNoDelay(true);
         }
     }
-    ready(callback) {
+
+    ready (callback) {
         this._eventUtil.ready(callback);
     }
+
     /**
    * 从socket缓冲区中读取n个buffer
    * @param {Number} n - buffer长度
    * @return {Buffer} - 读取到的buffer
    */
-    read(n) {
+    read (n) {
         return this._socket.read(n);
     }
 
     /**
-     * 
-     * @param {Buffer} header 
+     *
+     * @param {Buffer} header
      * @returns {Number}
      */
-    getHeaderMeta(header) {
-        return header.readUInt8()
+    getHeaderMeta (header) {
+        return header.readUInt8();
     }
+
     /**
-     * 
-     * @param {Buffer} header 
+     *
+     * @param {Buffer} header
      * @returns {Number}
      */
-    getBodyLength(header) {
+    getBodyLength (header) {
         return header.readInt32BE(1);
     }
-
-
 
     /**
      * 反序列化
      * @param {Buffer} body - 二进制数据
      * @return {SendPacket} 对象
      */
-    decode(body, header) {
-
-        const meta = this.getHeaderMeta(header)
-        const  dataType = meta >> 5;
+    decode (body, header) {
+        const meta = this.getHeaderMeta(header);
+        const dataType = meta >> 5;
         let data = null;
         if (dataType === 0) {
             try {
                 data = JSON.parse(body.toString('utf-8'));
             } catch (e) {
-                slogger.error('反序列化json失败',e);
+                slogger.error('反序列化json失败', e);
                 throw e;
-            }            
+            }
         } else if (dataType === 1) {
             data = body;
         }
-        
+
         return {
-            data,//消息数据
+            data, //消息数据
             dataType,
         };
     }
@@ -145,7 +145,7 @@ class Client extends EventEmitter {
      * @param {SendPacket} message
      * @return {Buffer} 对象
      */
-    encode(message) {
+    encode (message) {
         /*
          *  header 8byte
          * 1byte 8bit用于布尔判断 高位 3 bit 代表数据类型，000 json 数据 ，001 二进制数据
@@ -160,24 +160,25 @@ class Client extends EventEmitter {
             first = first | DATA_TYPE_JSON;
         }
 
-        const header = Buffer.alloc(HEAD_LEN)
+        const header = Buffer.alloc(HEAD_LEN);
         const data = JSON.stringify(message.data);
-        const body = Buffer.from(data); 
+        const body = Buffer.from(data);
         header.fill(0);
         header.writeUInt8(first, 0);
         header.writeUInt32BE(Buffer.byteLength(data), 1);
         return Buffer.concat([header, body]);
     }
+
     /**
      * 读取服务器端数据，反序列化成对象
-     * 
+     *
      * @fires Client~EVENT_NEW_MESSAGE
      */
-    _readPacket() {
+    _readPacket () {
         if (!(this._bodyLength)) {
             this._header = this.read(HEAD_LEN);
             if (!this._header) {
-                console.log('头部数据尚不完整')
+                console.log('头部数据尚不完整');
                 return false;
             }
             // 通过头部信息获得body的长度
@@ -193,7 +194,7 @@ class Client extends EventEmitter {
             }
         }
         this._bodyLength = null;
-        let entity = this.decode(body, this._header);
+        const entity = this.decode(body, this._header);
         // console.log(entity)
         setImmediate(() => {
             this.emit(EVENT_NEW_MESSAGE, entity.data, (res) => {
@@ -205,23 +206,25 @@ class Client extends EventEmitter {
 
     /**
      * 连接是否正常
-     * @property {Boolean} 
+     * @property {Boolean}
      */
-    get isOK() {
+    get isOK () {
         return this._socket && this._socket.writable;
     }
-    _getResEventName(seq) {
-        return `response_callback_${seq}`
+
+    _getResEventName (seq) {
+        return `response_callback_${seq}`;
     }
+
     /**
      * 给服务器端发送数据
-     * 
+     *
      * @param {Object} data 要发送的数据
-     * @param {SendCallback} [callback=function(){}] 
-     * @param {Number} [timeout=0] 
+     * @param {SendCallback} [callback=function(){}]
+     * @param {Number} [timeout=0]
      * @memberof Client
      */
-    send(data, callback = function () { }, timeout = 0) {
+    send (data, callback = function () { }, timeout = 0) {
         return this._send({
             timeout,
             data,
@@ -233,7 +236,7 @@ class Client extends EventEmitter {
      * @param {SendPacket} packet
      * @param {SendCallback=} [callback] - 回调函数，可选
      */
-    _send(packet, callback) {
+    _send (packet, callback) {
         // 如果有设置并发，不应该再写入，等待正在处理的请求已完成；
         // 或者当前没有可用的socket，等待重新连接后再继续send
         if (!this.isOK) {
@@ -242,7 +245,7 @@ class Client extends EventEmitter {
             if (!this._socket && !this._reConnectTimes) {
                 this._cleanQueue();
             }
-            slogger.debug('socket还未准备好')
+            slogger.debug('socket还未准备好');
             return;
         }
 
@@ -266,13 +269,13 @@ class Client extends EventEmitter {
     }
 
     // 清理未发出的请求
-    _cleanQueue() {
+    _cleanQueue () {
         this._queue = [];
     }
 
     // 缓冲区空闲，重新尝试写入
-    _resume() {
-        let args = this._queue.shift();
+    _resume () {
+        const args = this._queue.shift();
         if (args) {
             this._send(args[0], args[1]);
         }
@@ -282,7 +285,7 @@ class Client extends EventEmitter {
      * 主动关闭连接
      * @return {void}
      */
-    close() {
+    close () {
         this._reConnectTimes = 0;
         this._close();
     }
@@ -292,7 +295,7 @@ class Client extends EventEmitter {
      * @param {Error} err - 导致关闭连接的异常
      * @return {void}
      */
-    _close(err) {
+    _close (err) {
         if (!this._socket) {
             return;
         }
@@ -300,7 +303,7 @@ class Client extends EventEmitter {
         this._handleClose(err);
     }
 
-    _handleClose(err) {
+    _handleClose (err) {
         if (!this._socket) {
             return;
         }
@@ -335,7 +338,7 @@ class Client extends EventEmitter {
     }
 
     // 连接
-    _connect(done) {
+    _connect (done) {
         this._socket = net.connect(this.sockPath);
         this._socket.once('connect', () => {
             this._eventUtil.setResult(true);
@@ -348,10 +351,11 @@ class Client extends EventEmitter {
         });
         this._bindEvents();
     }
+
     /**
      * socket事件监听
      */
-    _bindEvents() {
+    _bindEvents () {
         const socket = this._socket;
 
         socket.on('readable', () => {
@@ -377,12 +381,10 @@ class Client extends EventEmitter {
         });
         this.on(EVENT_NEW_MESSAGE, (message) => {
             if (message.seq && message.action) {
-                this.emit(this._getResEventName(message.seq), message)
+                this.emit(this._getResEventName(message.seq), message);
             }
         });
     }
-
-
 }
 
 module.exports = Client;

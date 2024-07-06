@@ -1,13 +1,13 @@
 const http = require('http');
-const ccap = require('ccap')();//Instantiated ccap class 
+const ccap = require('ccap')();//Instantiated ccap class
 const cache = require('./lib/cache');
 const rand = require('./lib/rand');
 
 http.createServer(function (request, response) {
     const url = request.url;
-    if(url === '/favicon.ico')return response.end('');//Intercept request favicon.ico
+    if (url === '/favicon.ico') return response.end('');//Intercept request favicon.ico
     if (url === '/cache-test') {
-        return response.end(cache.queryWithCache(rand.create(3))||'__');
+        return response.end(cache.queryWithCache(rand.create(3)) || '__');
     }
     const ary = ccap.get();
     const txt = ary[0];

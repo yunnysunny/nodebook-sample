@@ -1,4 +1,4 @@
-exports.add = function(a,b) {
+exports.add = function (a, b) {
     console.log(a, b);
-    return a+b;
-}
+    return a + b;
+};

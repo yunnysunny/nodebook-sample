@@ -1,19 +1,19 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var log4js = require('log4js');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const log4js = require('log4js');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 
-var routes = require('./routes/index');
-var authFilter = require('./filters/auth_filter');
-var csrfFilter = require('./filters/csrf_filter');
-var config = require('./config');
-var tracelogger = config.tracelogger;
+const routes = require('./routes/index');
+const authFilter = require('./filters/auth_filter');
+const csrfFilter = require('./filters/csrf_filter');
+const config = require('./config');
+const tracelogger = config.tracelogger;
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,15 +32,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
     secret: 'GG##@$',
-    cookie:{},
-    key:'express_chapter12',
-    resave:false,
-    saveUninitialized:false,
+    cookie: {},
+    key: 'express_chapter12',
+    resave: false,
+    saveUninitialized: false,
     store: new RedisStore({
-        client:config.redis,
-        ttl:3600*2,
-        db:2,
-        prefix:'session:chapter12:'
+        client: config.redis,
+        ttl: 3600 * 2,
+        db: 2,
+        prefix: 'session:chapter12:'
     })
 
 }));
@@ -52,10 +52,10 @@ app.use('/', routes);
 //app.use('/users', users);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function (req, res, next) {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
@@ -63,24 +63,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
-
 
 module.exports = app;

@@ -1,23 +1,23 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
 //var logger = require('morgan');
-var log4js = require('log4js');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
-var redis = require('redis');
+const log4js = require('log4js');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const redis = require('redis');
 
-var testRotes = require('./routes/test');
-var routes = require('./routes/index');
-var calculatorRoutes = require('./routes/calculator');
-var authFilter = require('./filters/auth_filter');
-var config = require('./config');
-var tracelogger = config.tracelogger;
-var errorlogger = config.errorlogger;
+const testRotes = require('./routes/test');
+const routes = require('./routes/index');
+const calculatorRoutes = require('./routes/calculator');
+const authFilter = require('./filters/auth_filter');
+const config = require('./config');
+const tracelogger = config.tracelogger;
+const errorlogger = config.errorlogger;
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,29 +36,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
     secret: 'GG##@$',
-    cookie:{domain:'localhost'},
-    key:'express_chapter7',
-    resave:false,
-    saveUninitialized:false,
+    cookie: { domain: 'localhost' },
+    key: 'express_chapter7',
+    resave: false,
+    saveUninitialized: false,
     store: new RedisStore({
-        client:config.redis,
-        ttl:3600*72,
-        db:2,
-        prefix:'session:chapter7:'
+        client: config.redis,
+        ttl: 3600 * 72,
+        db: 2,
+        prefix: 'session:chapter7:'
     })
 
 }));
-app.use('/test',testRotes);
-app.use('/calculator',calculatorRoutes)
+app.use('/test', testRotes);
+app.use('/calculator', calculatorRoutes);
 app.use(authFilter);
 app.use('/', routes);
 //app.use('/users', users);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function (req, res, next) {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
@@ -66,24 +66,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
-
 
 module.exports = app;

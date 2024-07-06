@@ -1,7 +1,7 @@
 const path = require('path');
 const { Worker } = require('worker_threads');
 
-function createWoker() {
+function createWoker () {
     const worker = new Worker(
         path.join(__dirname, './worker.js')
     );
@@ -19,7 +19,7 @@ function createWoker() {
 }
 
 (async function () {
-    for (var i=0;i<5;i++) {
+    for (let i = 0; i < 5; i++) {
         await createWoker();
     }
 })();

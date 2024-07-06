@@ -1,3 +1,3 @@
-exports.doAdd = function(x,y) {
-    return x+y;
+exports.doAdd = function (x, y) {
+    return x + y;
 };

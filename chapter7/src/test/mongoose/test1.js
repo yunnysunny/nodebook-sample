@@ -1,37 +1,37 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 require('./conn');//代码6.2.2.1对应的代码
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var articleSchema = new Schema({
-  name:  String,
-  content:   String,
-  comments: [{ body: String, date: Date }],
-  createTime: { type: Date, default: Date.now }
+const articleSchema = new Schema({
+    name: String,
+    content: String,
+    comments: [{ body: String, date: Date }],
+    createTime: { type: Date, default: Date.now }
 });
 
-var Article = mongoose.model('article', articleSchema);
+const Article = mongoose.model('article', articleSchema);
 
 new Article({
-    name:'chapter5',
-    content:'Express.js 基础',
-    comments : [
-        {body:'写的不多',date:new Date('2016-10-11')},
-        {body:'我顶',date:new Date('2017-01-01')}
+    name: 'chapter5',
+    content: 'Express.js 基础',
+    comments: [
+        { body: '写的不多', date: new Date('2016-10-11') },
+        { body: '我顶', date: new Date('2017-01-01') }
     ],
-    create_at:new Date('2016/07/03')
-}).save(function(err,item) {
-    console.log(err,item);
+    create_at: new Date('2016/07/03')
+}).save(function (err, item) {
+    console.log(err, item);
 });
 
 Article.create([
-    {name:'chapter1',content:'Node.js 简介',createTime:new Date('2016/07/01')},
-    {name:'chapter1',content:'Node.js 简介',createTime:new Date('2016/07/01')},
-    {name:'chapter1',content:'Node.js 简介',createTime:new Date('2016/07/01')},
-    {name:'chapter2',content:'Node.js 基础',createTime:new Date('2016/07/02')},
-    {name:'chapter2',content:'Node.js 基础',createTime:new Date('2016/07/02')}
-],function(err,ret) {
-    console.log('插入数组',err,ret);
+    { name: 'chapter1', content: 'Node.js 简介', createTime: new Date('2016/07/01') },
+    { name: 'chapter1', content: 'Node.js 简介', createTime: new Date('2016/07/01') },
+    { name: 'chapter1', content: 'Node.js 简介', createTime: new Date('2016/07/01') },
+    { name: 'chapter2', content: 'Node.js 基础', createTime: new Date('2016/07/02') },
+    { name: 'chapter2', content: 'Node.js 基础', createTime: new Date('2016/07/02') }
+], function (err, ret) {
+    console.log('插入数组', err, ret);
 });
 // db.article.insert(,function(err,ret) {
 //     console.log('单条插入',err,ret);
@@ -48,7 +48,7 @@ Article.create([
 // });
 // db.article.remove({name:'chapter1'},{justOne:true},function(err,ret) {
 //     console.log('删除单条数据',err,ret);
-    
+
 // });
 // // db.article.remove({name:'chapter1'},function(err,ret) {
 // //         console.log('删除数据',err,ret);

@@ -1,18 +1,18 @@
 {
-  apps : [{
-    name        : "chapter7",
-    script      : "./src/bin/www",
-    instances   : 2,
-    exec_mode: "cluster",
-    max_restarts: 5,
-    watch       : false,
-    error_file  : "/tmp/log/chapter7/error.log",
-    out_file    : "/tmp/log/chapter7/out.log",
-    env: {
-      "NODE_ENV": "development",
-    },
-    env_production : {
-       "NODE_ENV": "production"
-    }
-  }]
+    apps : [{
+        name: 'chapter7',
+        script: './src/bin/www',
+        instances: 2,
+        exec_mode: 'cluster',
+        max_restarts: 5,
+        watch: false,
+        error_file: '/tmp/log/chapter7/error.log',
+        out_file: '/tmp/log/chapter7/out.log',
+        env: {
+            NODE_ENV: 'development',
+        },
+        env_production: {
+            NODE_ENV: 'production'
+        }
+    }];
 }

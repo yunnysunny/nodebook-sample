@@ -1,6 +1,6 @@
-var csurf = require('csurf')();
+const csurf = require('csurf')();
 
-module.exports = function(app) {
+module.exports = function (app) {
     app.use(function (req, res, next) {
         csurf(req, res, next);
     });
