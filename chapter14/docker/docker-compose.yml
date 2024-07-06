@@ -1,0 +1,30 @@
+version: "3"
+services:
+  alertmanager:
+    restart: always
+    image: prom/alertmanager
+    network_mode: host
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+  prometheus:
+    restart: always
+    user: root
+    privileged: true
+    image: bitnami/prometheus
+    container_name: prometheus-dev
+    network_mode: host
+    volumes:
+      - ./prometheus:/opt/bitnami/prometheus/conf
+    depends_on:
+      - alertmanager
+  grafna:
+    restart: always
+    image: grafana/grafana
+    user: root
+    volumes:
+      - ./grafana-persistence:/var/lib/grafana
+    network_mode: host
+    environment:
+       GF_SECURITY_ADMIN_PASSWORD: "secret"
+    depends_on:
+      - prometheus

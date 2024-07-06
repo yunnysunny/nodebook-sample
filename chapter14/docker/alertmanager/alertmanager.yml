@@ -1,0 +1,30 @@
+global:
+  resolve_timeout: 10m
+  smtp_smarthost: smtp.163.com:25
+  smtp_from: 12345678@163.com
+  smtp_auth_username: 12345678@163.com
+  smtp_auth_password: 123456 (授权码)
+
+templates:     ##消息模板
+  - '/etc/alertmanager/template/wechat.tmpl'
+route:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 1h
+  receiver: 'wechat'    # 优先使用wechat发送
+  repeat_interval: 1h
+  routes:  #子路由，使用email发送
+  - receiver: email
+    match_re: 
+      serverity: email
+receivers:
+- name: 'email'
+  email_configs:
+  - to: '11111122@qq.com'
+    send_resolved: true  # 发送已解决通
+- name: 'wechat'
+  wechat_configs:
+  - corp_id: 'xxx'
+    to_party: '1'
+    agent_id: '1000002'
+    api_secret: 'xxxx'
