@@ -8,6 +8,11 @@ const imageDir = __dirname + '/images';
 
 const server = http.createServer((req, res) => {
     const url = req.url;
+    if (path.normalize(decodeURI(req.url)) !== decodeURI(req.url)) {
+        res.statusCode = 403;
+        res.end();
+        return;
+    }
     if (url === '/') {
         return res.end('home page');
     }
