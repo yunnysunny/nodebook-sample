@@ -1,0 +1,10 @@
+{
+    "port":7001,
+    "errorLogFile":"demo-error.log",
+    "kafkaConfig":{
+        "topic":"req-log",
+        "connection": {
+            "brokers": ["127.0.0.1:9092"]
+        }
+    }
+}

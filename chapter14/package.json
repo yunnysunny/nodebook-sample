@@ -3,9 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./app.js"
+    "start:prom": "node ./prometheus/app.js",
+    "start:log": "node ./log/app.js"
   },
   "dependencies": {
-    "prom-client": "^14.0.1"
+    "@yunnysunny/request-logging": "^0.16.1",
+    "body-parser": "^1.20.2",
+    "config-settings": "^2.3.1",
+    "express": "^4.19.2",
+    "kafkajs": "^2.2.4",
+    "node-slogger": "^3.0.0",
+    "prom-client": "^14.0.1",
+    "queue-schedule": "^3.0.6"
   }
 }
