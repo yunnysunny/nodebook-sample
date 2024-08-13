@@ -1,5 +1,4 @@
 const requestLog = require('@yunnysunny/request-logging').default;
-const { kafkaSchedule } = require('./config');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -7,19 +6,18 @@ const http = require('http');
 const {
     slogger,
     port,
+    kafkaSchedule,
 } = require('./config');
 const { setTimeout } = require('timers/promises');
 
 const app = express();
 app.enable('trust proxy');
 
-// view engine setup
 app.set('port', port);
 app.use(requestLog({
     onReqFinished: (data) => {
         kafkaSchedule.addData(data);
     },
-    // stdoutDisabled: true
 }));
 
 app.use(bodyParser.json({ limit: '1mb' }));
@@ -61,10 +59,6 @@ app.use(function (err, req, res, next) {
 
 const server = http.createServer(app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
 server.listen(port);
 server.on('error', (err) => {
     slogger.error('发现应用启动异常', err);
@@ -74,16 +68,17 @@ function onListening () {
     const bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    console.log('Listening on ' + bind);
+    slogger.info('Listening on ' + bind);
 }
 server.on('listening', onListening);
 
 setInterval(() => {
+    const path = ['/a', '/b', '/c'][Math.floor(Math.random() * 3)];
     const options = {
         port,
         host: '127.0.0.1',
         method: 'GET',
-        path: '/a',
+        path,
     };
 
     const req = http.request(options, (res) => {
