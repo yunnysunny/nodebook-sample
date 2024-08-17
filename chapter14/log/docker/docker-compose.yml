@@ -5,10 +5,15 @@ services:
     hostname: kafka
     ports:
       - "9092:9092"
+      - "9999:9999"
+    networks:
+      - my_network
     environment:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      # JMX_PORT: 9999
+      KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
   ksqldb-server:
-    image: confluentinc/ksqldb-server:0.15.0
+    image: confluentinc/ksqldb-server:0.29.0
     hostname: ksqldb-server
     container_name: ksqldb-server
     user: root
@@ -16,17 +21,19 @@ services:
       - kafka
     ports:
       - "8088:8088"
-    environment:
-      KSQL_LISTENERS: http://0.0.0.0:8088
-      KSQL_BOOTSTRAP_SERVERS: kafka:9092  #要连接的kafka集群的地址
-      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
-      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
+    networks:
+      - my_network
+    command: ["ksql-server-start", "/etc/ksqldb-server/ksql-server.properties"]
+    volumes:
+      - ./ksqldb-server:/etc/ksqldb-server
 
   ksqldb-cli:
-    image: confluentinc/ksqldb-cli:0.15.0
+    image: confluentinc/ksqldb-cli:0.29.0
     container_name: ksqldb-cli
     depends_on:
       - ksqldb-server
+    networks:
+      - my_network
     entrypoint: /bin/sh
     tty: true
   kafka-ui:
@@ -37,6 +44,8 @@ services:
       - kafka
     ports:
       - 8090:8080
+    networks:
+      - my_network
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
@@ -44,3 +53,6 @@ services:
       DYNAMIC_CONFIG_ENABLED: true # not necessary for sasl auth, added for tests
 #    volumes:
 #      - ~/kui/config.yml:/etc/kafkaui/dynamic_config.yaml
+networks:
+  my_network:
+    driver: bridge

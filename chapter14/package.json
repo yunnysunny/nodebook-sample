@@ -7,7 +7,7 @@
     "start:log": "node ./log/app.js"
   },
   "dependencies": {
-    "@yunnysunny/request-logging": "^0.16.1",
+    "@yunnysunny/request-logging": "^0.17.0",
     "body-parser": "^1.20.2",
     "config-settings": "^2.3.1",
     "express": "^4.19.2",
