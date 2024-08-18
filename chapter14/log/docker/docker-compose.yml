@@ -13,7 +13,7 @@ services:
       # JMX_PORT: 9999
       KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
   ksqldb-server:
-    image: confluentinc/ksqldb-server:0.29.0
+    image: confluentinc/ksqldb-server:0.28.2
     hostname: ksqldb-server
     container_name: ksqldb-server
     user: root
@@ -23,19 +23,22 @@ services:
       - "8088:8088"
     networks:
       - my_network
-    command: ["ksql-server-start", "/etc/ksqldb-server/ksql-server.properties"]
-    volumes:
-      - ./ksqldb-server:/etc/ksqldb-server
+    environment:
+      KSQL_BOOTSTRAP_SERVERS: kafka:9092
+      KSQL_LISTENERS: http://0.0.0.0:8088/
+      # KSQL_KSQL_SERVICE_ID: ksql_service_1_
+      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
 
-  ksqldb-cli:
-    image: confluentinc/ksqldb-cli:0.29.0
-    container_name: ksqldb-cli
-    depends_on:
-      - ksqldb-server
-    networks:
-      - my_network
-    entrypoint: /bin/sh
-    tty: true
+  # ksqldb-cli:
+  #   image: confluentinc/ksqldb-cli:0.28.2
+  #   container_name: ksqldb-cli
+  #   depends_on:
+  #     - ksqldb-server
+  #   networks:
+  #     - my_network
+  #   entrypoint: /bin/sh
+  #   tty: true
   kafka-ui:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest
