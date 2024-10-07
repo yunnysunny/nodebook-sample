@@ -26,4 +26,5 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-    - targets: ['你node进程所在的ip:3001']
+    # 这个地方根据需要将127.0.0.1:3001改为你的nodejs服务地址
+    - targets: ['127.0.0.1:3001']
