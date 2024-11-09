@@ -2,7 +2,7 @@ const { Readable } = require('stream');
 
 class MyReadable extends Readable {
     _read () {
-
+        console.log('调用了 _read 函数');
     }
 }
 
@@ -17,6 +17,8 @@ for (let i = 0; i < dataLen; i++) {
     const pushResult = reader.push(Buffer.from(data[i]));
     if (!pushResult) {
         console.warn('达到highWater值了，最好不要再 push 了', i);
+    } else {
+        console.log('没有达到highWater值', i);
     }
 }
 for (let i = 0; i < 3; i++) {
