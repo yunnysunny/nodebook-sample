@@ -4,3 +4,5 @@ exports.commonLabels = {
     namespace: 'default',
 };
 exports.commonLabelNames = Object.keys(exports.commonLabels);
+
+exports.reqLabelsNames = ['path', 'status', ...exports.commonLabelNames];

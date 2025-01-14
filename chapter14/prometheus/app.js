@@ -28,9 +28,13 @@ http.createServer((req, res) => {
             });
             return;
         }
-        res.statusCode = STATUS[Math.floor(Math.random() * STATUS_LEN)];
-        addReqCount(path, res.statusCode);
-        collectDuration(path, Date.now() - begin);
+        const status = res.statusCode = STATUS[Math.floor(Math.random() * STATUS_LEN)];
+        addReqCount({ path, status });
+        collectDuration({
+            path,
+            duration: Date.now() - begin,
+            status,
+        });
         res.end(JSON.stringify({
             url,
             method: req.method,
