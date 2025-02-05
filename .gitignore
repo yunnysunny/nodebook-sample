@@ -11,3 +11,5 @@ config.json
 build
 .nyc_output
 coverage
+chapter14/prometheus/docker/grafana-persistence/
+!chapter14/prometheus/docker/grafana-persistence/.gitkeep
