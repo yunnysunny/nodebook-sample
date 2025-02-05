@@ -22,6 +22,7 @@ http.createServer((req, res) => {
         const path = url.split('?')[0];
         if (req.url === '/metrics') {
             client.register.metrics().then(function (str) {
+                res.setHeader('Content-Type', client.register.contentType);
                 res.end(str);
             }).catch(function (err) {
                 res.end(err);
