@@ -16,7 +16,7 @@
     "debug": "~3.1.0",
     "ejs": "~2.5.5",
     "express": "~4.16.0",
-    "express-session": "~1.15.6",
+    "express-session": "~1.18.2",
     "log4js": "^0.6.38",
     "mongoose": "^6.3.4",
     "mongoskin": "~2.1.0",
