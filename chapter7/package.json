@@ -15,9 +15,9 @@
     "debug": "~2.6.9",
     "ejs": "~2.5.5",
     "express": "~4.16.0",
-    "express-session": "~1.15.6",
+    "express-session": "~1.18.2",
     "mongoose": "^5.8.9",
-    "morgan": "~1.9.1",
+    "morgan": "~1.10.1",
     "redis": "~2.3.0",
     "serve-favicon": "~2.4.5",
     "snyk": "^1.192.3"
