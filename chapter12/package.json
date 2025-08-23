@@ -22,7 +22,7 @@
     "mongoose": "^5.0.0-rc2",
     "node-slogger": "^0.4.3",
     "serve-favicon": "~2.4.5",
-    "snyk": "^1.192.3"
+    "snyk": "^1.231.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
